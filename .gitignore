@@ -1,0 +1,13 @@
+# Folder
+.DS_Store
+deploy/
+.idea/
+
+# Files
+*.py[cod]
+*.sql
+*.log
+*.pot
+*.egg
+*.egg-info
+local_settings.py
