@@ -1,0 +1,83 @@
+{% load i18n %}
+{% load url from future %}
+<style type="text/css">
+    #container .lmenu .top-menu {
+        background: #EEE url(/static/admin/img/nav-bg.gif) repeat-x 0 -12px;
+        margin: 0;
+        padding: 2px 5px 3px 5px;
+        font-size: 11px;
+        text-align: left;
+        font-weight: bold;
+        color: #666;
+        border-bottom: 1px solid #EEE;
+    }
+    #container .lmenu .bot-menu {
+        display: none;
+    }
+    .element {
+        font-size: 11px;
+        line-height: 13px;
+        border-bottom: 1px solid #EEE;
+        vertical-align: top;
+        padding: 5px;
+        /*font-weight: bold;*/
+        font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+    }
+    #container .lmenu h2 a {
+        color: #666;
+    }
+</style>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://yandex.st/jquery/cookie/1.0/jquery.cookie.min.js"></script>
+<script type="text/javascript">
+        $(document).ready(function(){
+            $('.top-menu').click(function(){
+                var idtext = this.id;
+                var sh = $.cookie(idtext);
+
+                if (sh == 'hide') {
+                    $(this).next().show();
+                    $.cookie(idtext, 'show', {expires: 2, path: "{% url 'admin:index' %}"});
+                } else if (sh == 'show') {
+                    $(this).next().hide();
+                    $.cookie(idtext, 'hide', {expires: 2, path: "{% url 'admin:index' %}"});
+                } else {
+                    $(this).next().show();
+                    $.cookie(idtext, 'show', {expires: 2, path: "{% url 'admin:index' %}"});
+                }
+            });
+            $('.top-menu').each(function(index) {
+                var idtext = this.id;
+                var sh = $.cookie(idtext);
+
+                if (sh == 'hide') {
+                    $(this).next().hide();
+                } else if (sh == 'show') {
+                    $(this).next().show();
+                } else {
+                    $(this).next().hide();
+                }
+//                alert(index + ': ' + $(this).text());
+            });
+        });
+</script>
+<div class="lmenu" style="float: left;width:170px;padding: 12px 0 0 10px;">
+    <div style="width: 100%; border: 1px solid #CCC;">
+        <div>
+            <div class="top-menu" id="home"><a href="{% url 'admin:index' %}">{% trans "Home" %}</a></div>
+            <div class="bot-menu"></div>
+            {% for app in adm_app_list %}
+                <div class="top-menu" id="a_{{ app.app_label }}">{% blocktrans with app.name as name %}{{ name }}{% endblocktrans %}</div>
+                <div class="bot-menu">
+                {% for model in app.models %}
+                    {% if model.perms.change %}
+                        <div class="element"><a href="{{ model.admin_url }}">{{ model.name }}</a></div>
+                    {% else %}
+                        <div class="element">{{ model.name }}</div>{{ model }}
+                    {% endif %}
+                {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

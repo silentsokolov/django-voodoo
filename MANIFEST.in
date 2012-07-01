@@ -1,0 +1,1 @@
+recursive-include voodoo/templates/admin *.html
