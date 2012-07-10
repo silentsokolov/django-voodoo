@@ -6,7 +6,7 @@ django-voodoo this a extension to the Django administration interface.
 
 Install with ``pip``:
 
-    pip install git+https://github.com/SilentSokolov/django-admin-vodun.git
+    pip install git+https://github.com/SilentSokolov/django-voodoo.git
 
 Add ``'voodoo'`` to your INSTALLED_APPS (before django.contrib.admin):
 
