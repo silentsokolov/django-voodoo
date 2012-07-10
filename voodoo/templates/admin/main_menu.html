@@ -2,13 +2,13 @@
 {% load url from future %}
 <style type="text/css">
     #container .lmenu .top-menu {
-        background: #EEE url(/static/admin/img/nav-bg.gif) repeat-x 0 -12px;
+        background: #EEE url(/static/admin/img/default-bg.gif) repeat-x 0 -12px;
         margin: 0;
         padding: 2px 5px 3px 5px;
         font-size: 11px;
         text-align: left;
         font-weight: bold;
-        color: #666;
+        color: #FFF;
         border-bottom: 1px solid #EEE;
     }
     #container .lmenu .bot-menu {
@@ -67,7 +67,7 @@
             <div class="top-menu" id="home"><a href="{% url 'admin:index' %}">{% trans "Home" %}</a></div>
             <div class="bot-menu"></div>
             {% for app in adm_app_list %}
-                <div class="top-menu" id="a_{{ app.app_label }}">{% blocktrans with app.name as name %}{{ name }}{% endblocktrans %}</div>
+                <div class="top-menu" id="a_{{ app.app_label }}">{% trans app.name %}</div>
                 <div class="bot-menu">
                 {% for model in app.models %}
                     {% if model.perms.change %}
