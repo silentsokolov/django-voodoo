@@ -49,7 +49,17 @@ def get_app_list(request):
 
     app_list = app_dict.values()
     app_list.sort(lambda x, y: cmp(x['name'], y['name']))
-    return {'adm_app_list': app_list}
+
+    try:
+        from django.conf import settings as django_settings
+        if hasattr(django_settings, 'VOODOO_MENU'):
+            ex_app = django_settings.VOODOO_MENU
+        else:
+            ex_app = {}
+    except ImportError, exp:
+        ex_app = {}
+
+    return {'adm_app_list': app_list, 'ex_app': ex_app}
 
 @register.inclusion_tag('admin/main_menu.html', takes_context=True)
 def main_menu(context):

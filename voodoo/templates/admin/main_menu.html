@@ -78,6 +78,14 @@
                 {% endfor %}
                 </div>
             {% endfor %}
+            {% if ex_app %}
+            <div class="top-menu" id="home_aa">{% trans "Extra" %}</div>
+            <div class="bot-menu">
+                {% for app in ex_app %}
+                <div class="element"><a href="{% url 'admin:index' %}{{ app.url }}">{{ app.name }}</a></div>
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>
